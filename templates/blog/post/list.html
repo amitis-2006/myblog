@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% block title %}My Posts{% endblock %}
+
+{% block header_extra %}
+  <p>Total posts: {{ page_obj.paginator.count }}</p>
+{% endblock %}
+
+{% block content %}
+  {% for post in page_obj %}
+    <article class="post" onclick="location.href='{% url 'blog:post_detail' slug=post.slug %}'" tabindex="0" role="link">
+      <h2><a href="{% url 'blog:post_detail' slug=post.slug %}">{{ post.title }}</a></h2>
+      <div class="post-meta">
+        By {{ post.author }} | Published on {{ post.published|date:"F j, Y" }}
+      </div>
+      <p class="post-excerpt">{{ post.body|truncatewords:30 }}</p>
+    </article>
+  {% empty %}
+    <div class="no-posts">No posts available.</div>
+  {% endfor %}
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">« </a>
+    {% endif %}
+    <span>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}"> »</a>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}New Post{% endblock %}
+
+{% block content %}
+
+  <h2 style="text-align:center; color:#fafafa; margin-bottom: 30px;">Make a New Post</h2>
+
+  <form method="post" enctype="multipart/form-data" style="max-width: 700px; margin: auto;">
+    {% csrf_token %}
+
+    <div style="display: flex; flex-direction: column; gap: 25px;">
+      {{ form.as_p }}
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <button type="submit"
+        style="
+          background-color: #89c7ff;
+          color: #121212;
+          padding: 14px 36px;
+          font-size: 1.1rem;
+          font-weight: 600;
+          border: none;
+          border-radius: 12px;
+          box-shadow: 0 0 10px #66aaff;
+          cursor: pointer;
+          transition: all 0.3s ease;">
+        Save
+      </button>
+    </div>
+
+  </form>
+
+{% endblock %}

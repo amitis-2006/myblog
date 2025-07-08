@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+  <h2 style="color:#fafafa; margin-bottom: 20px;">Contact Us</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: #7CFC00;
+                background-color: #222; 
+                padding: 10px 15px; 
+                border-radius: 6px; 
+                box-shadow: 0 0 6px #7CFC00;
+                max-width: 400px;">
+        {{ message }}
+      </p>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" style="max-width: 450px; margin-top: 30px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" style="
+        background-color: #70a1ff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        color: #121212;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 0 10px #70a1ff;
+        transition: background-color 0.3s ease;
+    " onmouseover="this.style.backgroundColor='#1e90ff'"
+       onmouseout="this.style.backgroundColor='#70a1ff'">
+      Send
+    </button>
+  </form>
+{% endblock %}
