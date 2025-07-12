@@ -142,7 +142,7 @@ def login_view(request):
     return render(request , "registration/login.html" , {'form':form})
 
 def home(request):
-    posts=Post.objects.all().order_by('-created_at')[:3]
+    posts=Post.objects.all().order_by('-published')[:3]
     return render(request, 'blog/home.html' , {'posts':posts})
 def create_post(request):
     if request.method == 'POST':

@@ -22,6 +22,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.DRAFT)
     image=models.ImageField(upload_to='blog_images/', null=True, blank=True)
     view_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
     class Meta:
         ordering = ('-published',)
 
