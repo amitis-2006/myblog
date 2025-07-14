@@ -1,0 +1,24 @@
+@media (max-width: 768px) {
+  #content {
+    padding: 10px !important;
+  }
+
+  .module table th,
+  .module table td {
+    font-size: 0.85rem;
+    padding: 6px;
+  }
+
+  .form-row {
+    display: block;
+    width: 100%;
+  }
+
+  .submit-row {
+    text-align: center;
+  }
+
+  .breadcrumbs {
+    font-size: 0.85rem;
+  }
+}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from . models import Post
 from . models import Profile
+from django.contrib.admin.sites import AdminSite
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'status', 'published', 'slug', 'view_count')
@@ -13,6 +14,11 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ('published','status')
     list_display_links = ('slug',)
     #actions = ['publish_posts']
+    class Media:
+        css = {
+            'all': ('css/admin_mobile_fix.css',)
+        }
+
     def publish_posts(self, request, queryset):
         update= queryset.update(status=Post.Status.PUBLISHED)
         self.message_user(request, f'{update} published')
@@ -43,3 +49,14 @@ class PostAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user','address','phone','full_name')
     search_fields = ('user__username','full_name','phone')
+    class Media:
+        css = {
+            'all': ('css/admin_mobile_fix.css',)
+        }
+
+
+class MyAdminSite(admin.AdminSite):
+    class Media:
+        css = {
+            'all': ('css/admin_mobile_fix.css',)
+        }
