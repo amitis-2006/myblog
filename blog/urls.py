@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 #from .views import login_view
 from .views import signup_view
 from .views import home, post_detail,post_list , profile_view
-
+from django.contrib.auth.views import LogoutView
 
 app_name='blog'
 
@@ -22,6 +22,7 @@ urlpatterns = [
     path('profile/', profile_view , name='profile'),
     path('post/<slug:slug>/request_publish/', views.request_publish, name='request_publish'),
     path('contact/', views.contact_us, name='contact_us'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
 
 

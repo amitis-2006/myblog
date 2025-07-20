@@ -22,6 +22,7 @@
       flex-wrap: wrap;
       gap: 40px;
       padding: 20px 10px;
+      margin-top: 50px;
     }
 
     .top-nav a{
@@ -39,6 +40,76 @@
       color: #1e90ff;
       border-bottom:   2px solid #1e90ff;
     }
+    .top-mini-nav {
+      background-color: #222;
+      color: #70a1ff;
+      padding: 5px 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-weight: 600;
+      font-family: 'Poppins' , sans-serif;
+      position:fixed;
+      top:0;
+      width: 100%;
+      z-index: 9999;
+    }
+
+    #menu-toggle{
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #70a1ff;
+      cursor: pointer;
+      user-select: none;
+    }
+    #mini-menu {
+      display: flex;
+      flex-direction: column;
+      background: #333;
+      padding: 0;
+      position: absolute;
+      top: 40px;
+      left: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
+
+    #mini-menu a {
+      padding: 10px 15px;
+      color: #70a1ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    #mini-menu a:hover {
+      background-color: #444;
+      color: #89c7ff;
+    }
+
+    #mini-menu.active{
+      max-height: 300px;
+      opacity: 1;
+      padding: 10px;
+    }
+
+    @media(max-width: 480px) {
+      #mini-menu {
+        flex-direction: column;
+        background: #333;
+        padding: 10px;
+        position: absolute;
+        top: 40px;
+        left: 10px;
+        border-radius: 8px;
+      }
+    }
+
+
+
 
 
     .container {
@@ -191,16 +262,57 @@
         font-size: 0.95rem;
       }
     }
+    .back-btn-wrapper{
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      padding: 10px 30px 0;
+    }
+    .back-btn {
+      color: #89c7ff;
+      background-color: transparent;
+      border: 1px solid #89c7ff;
+      padding: 6px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      background-color: #89c7ff;
+      color: #121212;
+      box-shadow: 0 0 10px #89c7ff;
+    }
+
   </style>
 </head>
 <body>
+  <div class="top-mini-nav">
+    <button id="menu-toggle">&#9776;</button>
+    <div id="mini-menu" >
+      <a href="{% url 'blog:profile' %}">Profile</a>
+      <a href="{% url 'blog:signup' %}">Signup</a>
+      <a href="{% url 'blog:login' %}">Login</a>
+      <form id="logout-form" action="{% url 'logout' %}" method="post" style="display:none;">
+        {% csrf_token %}
+      </form>
+      <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        Logout
+      </a>
+    </div>
+  </div>
   <nav class="top-nav">
     <a href="{% url 'blog:post_list' %}">Home</a>
-    <a href="{% url 'blog:profile' %}">Profile</a>
     <a href="{% url 'blog:contact_us' %}">Contact</a>
     <a href="/admin/" class="admin-link">Admin</a>
-    <a href="{% url 'blog:signup' %}">Signup</a>
+
   </nav>
+  <div class="back-btn-wrapper">
+    <a href="javascript:history.back()" class="back-btn">←</a>
+  </div>
   <div class="container">
     <header>
       <h1>My Blog</h1>
@@ -214,5 +326,13 @@
   <footer style="text-align:center; color:#666; margin:50px 0 30px; font-size:0.9rem;">
     &copy; 2025 My Blog.All rights reserved.
   </footer>
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const miniMenu = document.getElementById('mini-menu');
+
+  toggleBtn.addEventListener('click',()=> {
+    miniMenu.classList.toggle('active');
+  });
+</script>
 </body>
 </html>

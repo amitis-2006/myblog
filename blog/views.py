@@ -48,6 +48,8 @@ class PostUpdateView(LoginRequiredMixin , UpdateView):
     form_class=PostForm
     template_name='blog/post_form.html'
     success_url = reverse_lazy('blog:post_list')
+    login_url='/login/'
+    redirect_field_name = 'next'
     def get_object(self, queryset=None):
         return get_object_or_404(Post, slug=self.kwargs['slug'] , author=self.request.user)
 
@@ -55,6 +57,8 @@ class PostDeleteView(LoginRequiredMixin , DeleteView):
     model=Post
     template_name='blog/post_confirm_delete.html'
     success_url = reverse_lazy('blog:post_list')
+    login_url = '/login/'
+    redirect_field_name = 'next'
     def get_object(self, queryset=None):
         return get_object_or_404(Post, slug=self.kwargs['slug'] , author=self.request.user)
 
@@ -156,7 +160,7 @@ def create_post(request):
     return render(request, 'your_template.html', {'form': form})
 
 
-@login_required
+@login_required(login_url='/login/')
 def profile_view(request):
     user = request.user
     try:

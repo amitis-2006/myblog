@@ -35,3 +35,9 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+class LogoutViewAllowGET(LogoutView):
+    def get(self,request, *args , **kwargs ):
+        return self.post(request, *args , **kwargs )
+path('logout/', LogoutViewAllowGET.as_view(next_page='blog:post_list'), name='logout'),
